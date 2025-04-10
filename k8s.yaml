@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hl-monitoring
+spec:
+  selector:
+    matchLabels:
+      app: hl-monitoring
+  template:
+    metadata:
+      labels:
+        app: hl-monitoring
+    spec:
+      containers:
+        - name: hl-monitoring
+          image: reg.nodeops.xyz/public/hl-val-moni
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          env:
+            - name: API_ENDPOINT
+              value: "https://api.hyperliquid-testnet.xyz/info"
+            - name: VALIDATOR_NAME
+              value: "NodeOps"
+            - name: DISCORD_WEBHOOK
+              value: "https://discord.com/api/webhooks/1170279902914826332/6o37ceiB0pXM17bItOoz8NCnc0rUnovoHcDxjWHaBvjwIbC5zQV25ps8QLcHs8Hv16g5"

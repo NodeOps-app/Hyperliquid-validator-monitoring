@@ -1,0 +1,13 @@
+services:
+  go-hl-val-mon:
+    image: reg.nodeops.xyz/public/hl-val-moni
+    build: .
+    container_name: go-hl-val-mon
+    restart: unless-stopped
+    environment:
+      - API_ENDPOINT=${API_ENDPOINT}
+      - VALIDATOR_NAME=${VALIDATOR_NAME}
+      - DISCORD_WEBHOOK=${DISCORD_WEBHOOK}
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
